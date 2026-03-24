@@ -7,9 +7,9 @@ urlpatterns = [
 
     # Auth
     path('login/', views.login_page, name='login'),
-    path('logout/', views.logout_view, name='logout'),
+    #path('logout/', views.logout_view, name='logout'), soon yh
 
     # Member Only
-    path('edit/', views.edit, name='edit'), 
-    path('save/', views.save, name='save'), 
+    #path('edit/', views.edit, name='edit'), ini kalo viewnya udah dibuat
+    #path('save/', views.save, name='save'), 
 ]
