@@ -1,4 +1,4 @@
-# 🏅 **PKPL UHUY**
+# **PKPL UHUY**
 
 ## 👥 **Anggota Kelompok**
 | No | Nama Lengkap | NPM |
