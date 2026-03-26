@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-# Model Biodata 
+# Model Biodata (Dilihat tanpa login)
 class Biodata(models.Model):
     nama = models.CharField(max_length=100)
     npm = models.CharField(max_length=20, unique=True)
@@ -14,14 +14,14 @@ class Biodata(models.Model):
     def __str__(self):
         return self.nama
 
-# Model Setting Web 
+# Model Setting Web (Syarat Otorisasi: Ubah Warna/Font)
 class WebSetting(models.Model):
     warna_background = models.CharField(max_length=20, default="#FFFFFF")
     font_utama = models.CharField(max_length=50, default="Arial, sans-serif")
     diubah_oleh = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     waktu_ubah = models.DateTimeField(auto_now=True)
 
-# Model Ekstensi User
+# Model Ekstensi User (Syarat Autentikasi: Membedakan Anggota vs Akun Lain)
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     is_anggota_kelompok = models.BooleanField(default=False) # Set True hanya untuk email anggota kelompok
