@@ -1,0 +1,167 @@
+<style>
+/* GRID WRAPPER (Bisa ditaruh di landing_page.html atau tetap di sini) */
+.card-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/* CARD BODY */
+.card-member {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 24px;
+    padding: 36px 24px 24px;
+    text-align: center; /* Rata tengah agar komposisi foto besar seimbang */
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Aksen Garis Merah di Atas Kartu */
+.card-member::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: #990b29;
+}
+
+.card-member:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(153, 11, 41, 0.08); /* Bayangan kemerahan yang elegan */
+    border-color: #fca5a5;
+}
+
+/* FOTO (DIBUAT LEBIH BESAR: 120px) */
+.avatar-wrapper {
+    margin: 0 auto 20px auto;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    padding: 5px; /* Ruang untuk ring */
+    border: 2px dashed #cbd5e1; /* Ring putus-putus estetik */
+    transition: all 0.3s ease;
+}
+
+/* Ring berubah jadi solid merah saat kartu di-hover */
+.card-member:hover .avatar-wrapper {
+    border-color: #990b29;
+    border-style: solid;
+    transform: scale(1.05); /* Efek zoom sedikit pada foto */
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #f8fafc;
+}
+
+.avatar-fallback {
+    background: #fef2f2;
+    color: #990b29;
+    font-weight: 800;
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* TEXT INFO */
+.name {
+    margin: 0 0 4px 0;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #111827;
+}
+
+.npm {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: #990b29;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: block;
+    letter-spacing: 0.5px;
+}
+
+/* ROLE BADGE */
+.role {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    background: #990b29;
+    padding: 6px 18px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* DESKRIPSI */
+.desc {
+    font-size: 0.95rem;
+    color: #4b5563;
+    line-height: 1.6;
+    margin-bottom: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #f3f4f6;
+    min-height: 60px;
+}
+
+/* BUTTON EDIT */
+.btn-edit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 14px;
+    background: #fef2f2;
+    color: #990b29;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+.btn-edit:hover {
+    background: #990b29;
+    color: white;
+}
+</style>
+
+<div class="card-member">
+
+    <div class="avatar-wrapper">
+        {% if p.foto %}
+            <img src="{{ p.foto }}" class="avatar" alt="Foto {{ p.nama }}">
+        {% else %}
+            <div class="avatar avatar-fallback">
+                {{ p.nama|first }}
+            </div>
+        {% endif %}
+    </div>
+
+    <h3 class="name">{{ p.nama }}</h3>
+    <span class="npm">{{ p.npm }}</span>
+
+    <div class="role">
+        {{ p.peran }}
+    </div>
+
+    <p class="desc">
+        {{ p.deskripsi|truncatewords:20|default:"Belum ada deskripsi profil." }}
+    </p>
+
+    {% if user.is_authenticated and user.userprofile.is_anggota_kelompok and p.id %}
+        <a href="{% url 'update_profil' p.id %}" class="btn-edit">
+            <i class="fa-solid fa-pen-to-square"></i> Edit Profil
+        </a>
+    {% endif %}
+
+</div>
