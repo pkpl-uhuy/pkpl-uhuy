@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Kelompok 01 — Digital Identity Management{% endblock %}</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #990b29;
+            --primary-hover: #7a0921;
+            --bg-body: {{ setting.warna_background|default:"#ffffff" }};
+            --font-main: {{ setting.font_utama|default:"'Plus Jakarta Sans', sans-serif" }};
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: var(--font-main);
+            background: var(--bg-body);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* FULL WIDTH */
+        .container {
+            width: 100%;
+            padding: 0 40px;
+        }
+
+        header {
+            background: var(--primary);
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* LOGO KIRI */
+        .logo {
+            font-weight: 800;
+            font-size: 1.6rem;
+            color: white;
+            text-decoration: none;
+        }
+
+        /* KANAN */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* GOOGLE BUTTON (OFFICIAL STYLE) */
+        .btn-google {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            color: #3c4043;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            text-decoration: none;
+            border: 1px solid #dadce0;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .btn-google:hover {
+            background: #f7f8f8;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        .btn-google img {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* BUTTON LAIN */
+        .btn-outline {
+            border: 1px solid white;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        main {
+            flex: 1;
+            padding: 40px;
+        }
+
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <nav>
+
+            <!-- KIRI -->
+            <a href="{% url 'landing_page' %}" class="logo">
+                PKPL UHUY
+            </a>
+
+            <!-- KANAN -->
+            <div class="nav-right">
+                {% if user.is_authenticated %}
+                    <span style="color:white;">Halo, {{ user.first_name }}</span>
+
+                    <a href="/logout" class="btn-outline">
+                        Logout
+                    </a>
+
+                {% else %}
+                    <!-- GOOGLE BUTTON FIX -->
+                    <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn-google">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/IOS_Google_icon.png" alt="Google">
+                        Sign in with Google
+                    </a>
+                {% endif %}
+            </div>
+
+        </nav>
+    </div>
+</header>
+
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+
+<footer>
+    <p>&copy; Pengantar Keamanan Perangkat Lunak 
+    <p> Genap 2025/2026 </p>
+</footer>
+
+</body>
+</html>
