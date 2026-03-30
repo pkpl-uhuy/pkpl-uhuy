@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from .models import Biodata, WebSetting
 from django.contrib.auth import logout
+from django.views.decorators.http import require_http_methods
 
 def landing_page(request):
     biodata_list = Biodata.objects.all()
@@ -25,7 +26,7 @@ def landing_page(request):
 @login_required
 def update_tampilan(request):
     if not request.user.userprofile.is_anggota_kelompok:
-        raise PermissionDenied # Akun Google lain gak boleh masuk
+        return redirect('landing_page') # Akun Google lain gak boleh masuk
         
     setting = WebSetting.objects.get(id=1)
     if request.method == 'POST':
@@ -39,7 +40,7 @@ def update_tampilan(request):
 @login_required
 def update_biodata(request, id):
     if not request.user.userprofile.is_anggota_kelompok:
-        raise PermissionDenied
+        return redirect('landing_page')
         
     biodata = get_object_or_404(Biodata, id=id)
     if request.method == 'POST':
