@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container" style="padding: 50px 0;">
+    <div style="background: var(--surface); padding: 40px; border-radius: 20px; max-width: 500px; margin: 0 auto;">
+        <h2>⚙️ Pengaturan Website</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div style="margin-bottom: 20px;">
+                <label>Warna Background:</label><br>
+                <input type="color" name="warna_background" value="{{ setting.warna_background }}" style="width: 100%; height: 40px;">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label>Font Utama:</label><br>
+                <select name="font_utama" style="width: 100%; padding: 10px; background: #334155; color: white; border: none;">
+                    <option value="Arial" {% if setting.font_utama == 'Arial' %}selected{% endif %}>Arial</option>
+                    <option value="'Space Mono', monospace" {% if setting.font_utama == "'Space Mono', monospace" %}selected{% endif %}>Space Mono</option>
+                    <option value="'Playfair Display', serif" {% if setting.font_utama == "'Playfair Display', serif" %}selected{% endif %}>Playfair Display</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Simpan Perubahan</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
