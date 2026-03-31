@@ -35,7 +35,7 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         # note for all: tolong update list email ini sesuai dengan email kalian yaa
         email_kelompok = ['tasyanasaragih@gmail.com', 'tasya.nabila41@ui.ac.id', 
-                          'syifa@gmail.com','syifa.anabella@ui.ac.id', 
+                          'syifaakrt@gmail.com','syifa.anabella@ui.ac.id', 
                           'elsamayora132@gmail.com', 
                           'scidsanyku1212@gmail.com', 
                           'tirahnurul51@gmail.com', 'satirah.nurul@ui.ac.id']
