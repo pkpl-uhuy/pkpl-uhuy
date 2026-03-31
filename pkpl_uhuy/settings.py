@@ -25,12 +25,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-%g20r%gw2w&gp6ehz13=q9$w(+j2c+ldr73222b7gar88r$vqy'
-SOCIAL_AUTH_REDIRECT_IS_HTTPS = False
+
 PRODUCTION = os.getenv('PRODUCTION', 'False').lower() == 'true'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".ngrok-free.app", "porsche-heftier-resiliently.ngrok-free.dev"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+
 
 # Application definition
 
@@ -41,27 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'social_django',
-    'main',
 ]
-AUTHENTICATION_BACKENDS = [
-    'social_core.backends.google.GoogleOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
-]
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('GOOGLE_CLIENT_ID')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET')
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
-    'openid',                                           
-    'https://www.googleapis.com/auth/userinfo.email',   
-    'https://www.googleapis.com/auth/userinfo.profile', 
-]
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name', 'last_name', 'picture']
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
